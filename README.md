@@ -1,4 +1,4 @@
-# nshvyryaev_infra
+# nshvyryaev_infra [![Build Status](https://travis-ci.com/Otus-DevOps-2020-02/nshvyryaev_infra.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-02/nshvyryaev_infra)
 nshvyryaev Infra repository
 
 ## HW3 Cloud bastion access
@@ -129,6 +129,14 @@ To run Ansible deploy execute `ansible-playbook site.yml` from directory `ansibl
 Note: There was an issue with APT repo key provided in gist for packer_db.yml.
 
 ## HW10 Ansible 3
-* Ansible roles added for app and db
-* Both roles are used in playbook `site.yml`
-* Two environments created: stage and prod
+- Ansible roles added for app and db
+- Both roles are used in playbook `site.yml`
+- Two environments created: stage and prod
+- Community role `jdauphant.nginx` used to configure http port proxy. 9292 firewall rule has been disabled, 80 port is enabled.
+- Playbook users.yml added to create users on app host. Variables are encrypted with Ansible Vault. For SSH config see https://serverpilot.io/docs/how-to-enable-ssh-password-authentication/
+- (*) Dynamic inventory from previous HW reused for both environments.
+- (**) Travis build updated
+  - validate packer templates
+  - validate terraform configurations
+  - lint Ansible playbooks
+- Travis build result badge is added to the repo README.
