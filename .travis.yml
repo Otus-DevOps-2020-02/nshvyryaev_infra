@@ -1,9 +1,11 @@
 dist: trusty
-sudo: required
 language: bash
+env:
+  - tf_version=0.12.25 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
 before_install:
-- curl https://raw.githubusercontent.com/express42/otus-homeworks/2020-02/run.sh |
-  bash
+  - ./travis/prepare.sh
+  - ./travis/run_checks.sh
+  - curl https://raw.githubusercontent.com/express42/otus-homeworks/2020-02/run.sh | bash
 notifications:
   slack:
     rooms:

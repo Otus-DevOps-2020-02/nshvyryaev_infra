@@ -12,3 +12,5 @@ packer/immutable_variables.json
 # Ansible
 *.retry
 service-account-file.json
+jdauphant.nginx
+vault.key
