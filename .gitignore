@@ -13,4 +13,13 @@ packer/immutable_variables.json
 *.retry
 service-account-file.json
 jdauphant.nginx
+ansible/roles/db
 vault.key
+
+# Vagrant & molecule
+.vagrant/
+*.log
+*.pyc
+.molecule
+.cache
+.pytest_cache

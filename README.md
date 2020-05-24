@@ -140,3 +140,42 @@ Note: There was an issue with APT repo key provided in gist for packer_db.yml.
   - validate terraform configurations
   - lint Ansible playbooks
 - Travis build result badge is added to the repo README.
+
+## HW11 Ansible 4
+
+### Vagrant
+- Used for local VM creation using VirtualBox provider.
+- Created VMs are provisioned with Ansible playbook `site.yml`
+- Roles app and db are extended to install requirements prior to configuration.
+- Packer templates are updated to use roles instead of playbooks
+- (*) Nginx params are added to Vagrant file to enable application on port 80
+
+### Molecule
+- Molecule project created in `roles/db` via command `molecule init scenario -s default -r db -d vagrant`
+- Test added to verify if DB is listening on default port
+
+#### (*) Extra task
+- Molecule project recreated in `roles/db` via command `molecule init scenario -s default -r db -d gce`
+  - Molecule version must be below 3.0 to use drivers like vagrant, gce
+- GCE integration added to travis
+  - Service account has been created
+  - Required parameters were encrypted in Travis configuration
+  - Secrets like private key and GCP credentials were archived and encrypted
+- Build badge is added to the `ansible-role-mongo` repo
+- Slack notifications are configured for Travis builds for `ansible-role-mongo` repo
+
+### How to use
+- Run `ansible-galaxy install -r environments/stage/requirements.yml` to install required roles (including role `db`)
+- Run `vagrant up` to create local virtual environment
+  - Application should be available at http://10.10.10.20
+  - Run `vagrant destroy` to remove virtual environment
+- Use virtualenv:
+  - Create with `virtualenv env`
+  - Start using with `source env/bin/activate`
+  - Stop using with `deactivate`
+- Install dependencies with `pip install -r requirements.txt` inside virtualenv
+- For Molecule test:
+  - `molecule create` to create VMs
+  - `molecule converge` to provision with Ansible
+  - `molecule verify` to run tests
+  - `molecule destroy` to clean up
